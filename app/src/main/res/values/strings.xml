@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application444</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="NameList">Список напитков</string>
+    <string name="Drink1">Чай</string>
+    <string name="Drink2">Кофе</string>
+    <string name="tea">Чай</string>
+    <string name="Coffee">Кофе</string>
+</resources>
