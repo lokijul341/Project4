@@ -7,4 +7,5 @@
     <string name="Drink2">Кофе</string>
     <string name="tea">Чай</string>
     <string name="Coffee">Кофе</string>
+    <string name="SortTea">Вид чая</string>
 </resources>
