@@ -41,6 +41,12 @@ public class SecondFragment extends Fragment {
 
         listView = view.findViewById(R.id.listView);
 
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Item item = (Item) parent.getItemAtPosition(position);
+            Toast.makeText(getContext(), "Нажатие на: " + item.getText(), Toast.LENGTH_SHORT).show();
+            Log.d("FragmentScreenTwo", "Нажатие на: " + item.getText());
+        });
+
 // Инициализация списка
         listItems = new ArrayList<>();
         for (int i = 1; i <= 200; i++) {

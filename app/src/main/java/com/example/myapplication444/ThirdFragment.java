@@ -42,10 +42,33 @@ public class ThirdFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            // Определяем слушателя касания элемента в RecyclerView
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                View child = rv.findChildViewUnder(e.getX(), e.getY());
+                if (child != null && e.getAction() == MotionEvent.ACTION_UP) {
+                    int position = rv.getChildAdapterPosition(child);
+                    Item item = listItems.get(position);
+                    Toast.makeText(getContext(), "Нажатие на: " + item.getText(), Toast.LENGTH_SHORT).show();
+                    Log.d("ThirdFragment", "Нажатие на: " + item.getText());
+                    return true;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+
 // Инициализация списка
         listItems = new ArrayList<>();
         for (int i = 1; i <= 200; i++) {
-            listItems.add(new Item(R.drawable.coffee2, "Item " + i));
+            listItems.add(new Item(R.drawable.coffee2, "Кофе " + i));
         }
 
 // Инициализация и назначение адаптера для списка
