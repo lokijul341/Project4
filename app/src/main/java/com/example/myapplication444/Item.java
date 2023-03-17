@@ -1,8 +1,8 @@
 package com.example.myapplication444;
 
 public class Item {
-    int image;
-    String names;
+    private int image;
+    private String names;
 
 
     public Item(int image, String names) {
@@ -17,4 +17,5 @@ public class Item {
     public int getImage() {
         return image;
     }
+
 }

@@ -4,47 +4,54 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication444.databinding.FragmentFirstBinding;
-public class FirstFragment extends Fragment {
-   FragmentFirstBinding binding;
+public class FirstFragment extends Fragment implements View.OnClickListener {
 
     public FirstFragment() {
         super(R.layout.fragment_first);
     }
 
-    @Nullable
+    private Button button1, button2;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//для перехода на второй экран
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().
-                        setReorderingAllowed(true);
-                ft.replace(R.id.fragment_view, new SecondFragment());
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+        button1 = view.findViewById(R.id.button);
+        button2 = view.findViewById(R.id.button4);
 
-        binding.button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//для перехода на третий экран
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().
-                        setReorderingAllowed(true);
-                ft.replace(R.id.fragment_view, new ThirdFragment());
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
-        return binding.getRoot();
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
 
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Fragment fragment = null;
+        switch (v.getId()) {
+            case R.id.button:
+                fragment = new SecondFragment();
+                break;
+            case R.id.button4:
+                fragment = new ThirdFragment();
+                break;
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.fragment_view, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 }

@@ -13,29 +13,26 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class ListAdapter1 extends ArrayAdapter<Item> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<Item> items;
-    public ListAdapter1(Context context, int resource,
-                               List<Item> items) {
-        super(context, resource, items);
-        this.items = items;
-        this.layout = resource;
-        this.inflater = LayoutInflater.from(context);
+    private Context context;
+    private List<Item> listItems;
+
+    public ListAdapter1(Context context, List<Item> listItems) {
+        super(context, R.layout.list_layout, listItems);
+        this.context = context;
+        this.listItems = listItems;
     }
 
-    public ListAdapter1(@NonNull Context context, int resource) {
-        super(context, resource);
-    }
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rowView = inflater.inflate(R.layout.list_layout, parent, false);
 
-    public View getView(int position, View convertView,
-                        ViewGroup parent) {
-        View view = inflater.inflate(this.layout, parent, false);
-        TextView textView = view.findViewById(R.id.item_text);
-        ImageView imageView = view.findViewById(R.id.item_image);
-        Item item = items.get(position);
-        textView.setText(item.getText());
-        imageView.setImageResource((item.getImage()));
-        return view;
+        TextView textView = rowView.findViewById(R.id.item_text);
+        ImageView imageView = rowView.findViewById(R.id.item_image);
+
+        textView.setText(listItems.get(position).getText());
+        imageView.setImageResource(listItems.get(position).getImage());
+
+        return rowView;
     }
 }
